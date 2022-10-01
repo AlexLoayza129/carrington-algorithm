@@ -1,5 +1,4 @@
 ![alt](./public/images/carrinton_logo.png)
-## Carrington's Algorithm
 
 ## Steps
 
