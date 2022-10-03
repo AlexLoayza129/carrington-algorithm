@@ -23,3 +23,7 @@ Route::get('/main', function(){
 })->name('main');
 
 Route::post('getData', [getDataController::class, 'getData'])->name('getData');
+
+Route::get('/blog/index', function(){
+    return view('carrinton.blog.index');
+})->name('blog');

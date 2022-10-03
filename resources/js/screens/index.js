@@ -301,7 +301,7 @@ $('body').on('click', '#process', function(e){
                                 <button>X</button>
                             </div>
                             <p><strong>CARRINGTON’S ALGORITM:</strong><br> The Deep Space Climate Observatory, is an American space weather station launched in the midst of February in 2015. Its purpose is to monitor the changes in solar wind to provide early warnings of geomagnetic storms that could impact heavily technological systems back on Earth.</p>
-                            <a target="_blank" href="#" class="text-[#301FF3] text-xs">https://www.carringtonsalgorithm.com</a>
+                            <a target="_blank" href="http://localhost:8000/blog/index" class="text-[#301FF3] text-xs">https://www.carringtonsalgorithm.com</a>
                         </div>
                     </div>
                 </div>
@@ -369,7 +369,7 @@ $('body').on('click', '#process', function(e){
                                 <button>X</button>
                             </div>
                             <p><strong>CARRINGTON’S ALGORITM:</strong><br> The Deep Space Climate Observatory, is an American space weather station launched in the midst of February in 2015. Its purpose is to monitor the changes in solar wind to provide early warnings of geomagnetic storms that could impact heavily technological systems back on Earth.</p>
-                            <a target="_blank" href="#" class="text-[#301FF3] text-xs">https://www.carringtonsalgorithm.com</a>
+                            <a target="_blank" href="http://localhost:8000/blog/index" class="text-[#301FF3] text-xs">https://www.carringtonsalgorithm.com</a>
                         </div>
                     </div>
                 </div>
@@ -437,7 +437,7 @@ $('body').on('click', '#process', function(e){
                                 <button>X</button>
                             </div>
                             <p><strong>CARRINGTON’S ALGORITM:</strong><br> The Deep Space Climate Observatory, is an American space weather station launched in the midst of February in 2015. Its purpose is to monitor the changes in solar wind to provide early warnings of geomagnetic storms that could impact heavily technological systems back on Earth.</p>
-                            <a target="_blank" href="#" class="text-[#301FF3] text-xs">https://www.carringtonsalgorithm.com</a>
+                            <a target="_blank" href="http://localhost:8000/blog/index" class="text-[#301FF3] text-xs">https://www.carringtonsalgorithm.com</a>
                         </div>
                     </div>
                 </div>
@@ -513,11 +513,11 @@ $('body').on('click', '.close_btn', function(){
 });
 
 // Contrast option
-$('body').on('click', '.contrast_option', function(){
-    var option = $('#contrastOption').val();
-    var boxContent = $('#detail_content');
+// $('body').on('click', '.contrast_option', function(){
+//     var option = $('#contrastOption').val();
+//     var boxContent = $('#detail_content');
 
    
-});
+// });
 
             
