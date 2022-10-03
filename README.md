@@ -12,6 +12,7 @@ IA-CarringtonAlgorithm (Directory):
 2. Install dependences 
 `npm install`
 `php artisan key:generate`
+`cp .env.example .env`
 
 3. Run the project
 `php artisan serve`
