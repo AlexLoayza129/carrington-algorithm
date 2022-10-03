@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Ajax\getDataController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,3 +21,5 @@ Route::get('/', function () {
 Route::get('/main', function(){
     return view('carrinton.index');
 })->name('main');
+
+Route::post('getData', [getDataController::class, 'getData'])->name('getData');

@@ -13,6 +13,7 @@
             font-family: 'Montserrat', sans-serif;
         }
     </style>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Carrington's Algorithm</title>
 </head>

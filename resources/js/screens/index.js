@@ -1,13 +1,25 @@
 import jQuery from 'jquery';
 window.$ = jQuery;
+var isProcess = false
+
+$(document).ready(function(){
+
+    $.ajaxSetup({
+        headers:
+        { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+    });
+
+    
+
+});
 
 //Show chart function
 function showChart(){
     const ctx = document.getElementById('myChart').getContext('2d');
     const myChart = new Chart(ctx, {
-        type: 'line',
+        type: 'bar',
         data: {
-            labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: ['DSCOVR', 'CA', 'WIND'],
             datasets: [{
                 label: '# of Votes',
                 data: [12, 19, 3, 5, 2, 3],
@@ -41,9 +53,9 @@ function showChart(){
 
     const ctx2 = document.getElementById('myChart2').getContext('2d');
     const myChart2 = new Chart(ctx2, {
-        type: 'line',
+        type: 'bar',
         data: {
-            labels: ['Purple', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: ['DSCOVR', 'CA', 'WIND'],
             datasets: [{
                 label: '# of Votes',
                 data: [5, 14, 32, 35, 8, 12],
@@ -77,9 +89,9 @@ function showChart(){
 
     const ctx3 = document.getElementById('myChart3').getContext('2d');
     const myChart3 = new Chart(ctx3, {
-        type: 'line',
+        type: 'bar',
         data: {
-            labels: ['Purple', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+            labels: ['DSCOVR', 'CA', 'WIND'],
             datasets: [{
                 label: '# of Votes',
                 data: [5, 14, 32, 35, 8, 12],
@@ -119,15 +131,43 @@ $('#cover_index', function(){
     html.fadeIn('slow')
 });
 
-// Constrast button
+// Contrast button
 $('body').on('click', '#contrast', function(){
     var list = $('#contrast_list')
+    $(this).parent().addClass('border border-[#00CB5D]')
     list.toggleClass('hidden')
 })
 
+// Contrast List
+$('body').on('click', '#contrast_list li button', function(e){
+    e.preventDefault();
+    var option = $(this).data('id');
+    var contrastOption = $('#contrastOption')
+    var list = $('#contrast_list')
+    var label = $('#contrast_text');
+
+    contrastOption.attr('value', option)
+    list.toggleClass('hidden')
+    label.text($(this).text())
+    $('#contrast').parent().removeClass('border border-[#00CB5D]')
+    isProcess = true;
+
+    if(isProcess){
+        var processBtn = $('#process');
+
+        processBtn.removeClass('text-gray-400 bg-gray-200 cursor-auto border-b-2 border-gray-400')
+        processBtn.addClass('bg-[#07173F] text-white select-auto cursor-pointer border-b-2 border-blue-800')
+        processBtn.attr('disabled', false)
+    }
+})
+
+
 // Process button
-$('body').on('click', '#process', function(){
+$('body').on('click', '#process', function(e){
+    e.preventDefault();
+
     $('#pre_loading').removeClass('hidden');
+
     var timeout = setTimeout(() => {
         $('#pre_loading').addClass('hidden');
         // Show detail
@@ -136,38 +176,28 @@ $('body').on('click', '#process', function(){
         detail.removeClass('hidden')
     },1500);
 
-});
+    // Get data
+    var url = $('#contrast_list').attr('action');
+    var id = $('#contrastOption').val();
 
-// Dscovr info
-$('body').on('click', '#dscovr_info', function(){
-    var textBox = $('#dscovr_info_text');
-    textBox.toggleClass('hidden');
-});
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+            id: id
+        },
+        dataType: "json",
+        success: function (response) {
+            console.log(response)
+        }
+    });
 
-// Wind info
-$('body').on('click', '#wind_info', function(){
-    var textBox = $('#wind_info_text');
-    textBox.toggleClass('hidden');
-});
+    //Hide process btn
+    $(this).addClass('hidden')
 
-// CA info
-$('body').on('click', '#ca_info', function(){
-    var textBox = $('#ca_info_text');
-    textBox.toggleClass('hidden');
-});
-
-// Close btn class
-$('body').on('click', '.close_btn', function(){
-    var parent = $(this).parent();
-    parent.addClass('hidden');
-});
-
-// Contrast option
-$('body').on('click', '.contrast_option', function(){
-    var option = $(this).data('id');
     var boxContent = $('#detail_content');
 
-    if(option == 1){
+    if(id == 1){
         var html = `<div class="hidden" id="detail">
             <div class="p-4 text-[#737373]">
                 <div>
@@ -235,7 +265,7 @@ $('body').on('click', '.contrast_option', function(){
 
         boxContent.append(html)
         showChart();
-    }else if(option == 2){
+    }else if(id == 2){
         var html = `<div class="hidden" id="detail">
         <div class="p-4 text-[#737373]">
             <div>
@@ -303,7 +333,7 @@ $('body').on('click', '.contrast_option', function(){
 
         boxContent.append(html)
         showChart();
-    }else if(option == 3){
+    }else if(id == 3){
         var html = `<div class="hidden" id="detail">
         <div class="p-4 text-[#737373]">
             <div>
@@ -455,6 +485,39 @@ $('body').on('click', '.contrast_option', function(){
         boxContent.append(html)
         showChart();
     }
+
+});
+
+// Dscovr info
+$('body').on('click', '#dscovr_info', function(){
+    var textBox = $('#dscovr_info_text');
+    textBox.toggleClass('hidden');
+});
+
+// Wind info
+$('body').on('click', '#wind_info', function(){
+    var textBox = $('#wind_info_text');
+    textBox.toggleClass('hidden');
+});
+
+// CA info
+$('body').on('click', '#ca_info', function(){
+    var textBox = $('#ca_info_text');
+    textBox.toggleClass('hidden');
+});
+
+// Close info btn class
+$('body').on('click', '.close_btn', function(){
+    var parent = $(this).parent();
+    parent.addClass('hidden');
+});
+
+// Contrast option
+$('body').on('click', '.contrast_option', function(){
+    var option = $('#contrastOption').val();
+    var boxContent = $('#detail_content');
+
+   
 });
 
             
